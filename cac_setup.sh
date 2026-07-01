@@ -16,6 +16,9 @@ main ()
     snap_ff=false                       # Snapped Firefox
     ff_profile_dir=""                   # Firefox profile directory
 
+    export DEBIAN_FRONTEND=noninteractive
+    export NEEDRESTART_MODE=a
+
     ORIG_HOME="$(getent passwd "$SUDO_USER" | cut -d: -f6)"
     CERT_EXTENSION="cer"
     # PKCS_FILENAME="pkcs11.txt"
@@ -39,7 +42,7 @@ main ()
     # Install middleware and necessary utilities
     print_info "Installing middleware and essential utilities..."
     apt update
-    DEBIAN_FRONTEND=noninteractive apt install -y libpcsclite1 pcscd libccid libpcsc-perl pcsc-tools libnss3-tools unzip wget opensc
+    apt install -y libpcsclite1 pcscd libccid libpcsc-perl pcsc-tools libnss3-tools unzip wget opensc
     print_info "Done"
 
     # Pull all necessary files
