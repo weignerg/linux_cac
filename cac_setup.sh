@@ -147,26 +147,17 @@ root_check ()
 run_firefox ()
 {
     print_info "Starting Firefox silently to complete post-install actions..."
-    sudo -H -u "$SUDO_USER" firefox --headless --first-startup >/dev/null 2>&1 &
-    sleep 3
-    pkill -9 firefox
-    sleep 1
+    sudo -H -u "$SUDO_USER" firefox --headless --first-startup --screenshot /dev/null about:blank &>/dev/null || true
+    print_info "Done running Firefox."
 } # run_firefox
 
 
 # Run Chrome to ensure .pki directory has been created
 run_chrome ()
 {
-    # NOTE: this is the original
-    # sudo -H -u "$SUDO_USER" bash -c 'google-chrome --headless --disable-gpu >/dev/null 2>&1 &'
-
-    # TODO: finish troubleshooting this
     print_info "Running Chrome to ensure it has completed post-install actions..."
-    sudo -H -u "$SUDO_USER" google-chrome --headless --disable-gpu >/dev/null 2>&1 &
-    sleep 3
-    pkill -9 google-chrome
-    sleep 1
-    print_info "Done."
+    sudo -H -u "$SUDO_USER" google-chrome --headless --disable-gpu --screenshot=/dev/null about:blank &>/dev/null || true
+    print_info "Done running Chrome."
 } # run_chrome
 
 
